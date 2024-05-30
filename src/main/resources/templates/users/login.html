@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+
+<head>
+    <title>User Login</title>
+</head>
+
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    User Login
+                </div>
+                <div class="card-body">
+                    <form action="/users/login" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">mid</span>
+                            <input type="text" name="mid" class="form-control" placeholder="mid">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">mpw</span>
+                            <textarea class="form-control col-sm-5" rows="5" placeholder="mpw" name="mpw"></textarea>
+                        </div>
+                        <div class="my-4">
+                            <div class="float-end">
+                                <button type="submit" class="btn btn-primary submitBtn">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!--end card body-->
+
+            </div><!--end card-->
+        </div><!-- end col-->
+    </div><!-- end row-->
+</div>
+
+<script layout:fragment="script" th:inline="javascript">
+    const errors = [[${errors}]]
+    const error = [[${errors1}]]
+    const message1 = [[${message}]]
+
+    if(message1!=null){
+        alert(message1)
+    }
+    console.log(errors)
+    let errorMsg = ''
+
+    if(errors){
+        for(let i=0; i<errors.length; i++){
+            errorMsg += `${errors[i].field}은(는) ${errors[i].code}`
+        }
+        alert(errorMsg)
+    }
+    alert(error)
+</script>
+</html>
