@@ -58,23 +58,13 @@ public class UserController {
 
 
 
-
-//    @PostMapping("/login")
-//    public String login(@RequestParam String mid, @RequestParam String mpw, RedirectAttributes redirectAttributes) {
-//        try {
-//            UserDTO userDTO = userService.login(mid, mpw);
-//            httpSession.setAttribute("user", userDTO.getMid());
-//            return "redirect:/board/list"; // 로그인 성공 후 리디렉션
-//        } catch (NoSuchElementException e) {
-//            return "redirect:/users/login";
-//        }
-//    }
     @PostMapping("/login")
     public String login(@RequestParam String mid, @RequestParam String mpw, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         try {
             UserDTO userDTO = userService.login(mid, mpw);
             HttpSession session = req.getSession(); // 세션을 가져옴
             session.setAttribute("user", userDTO.getMid()); // 로그인 사용자의 아이디를 세션에 저장
+
             return "redirect:/board/list"; // 로그인 성공 후 리디렉션
         } catch (NoSuchElementException e) {
             return "redirect:/users/login"; // 로그인 실패 시 로그인 페이지로 리디렉션

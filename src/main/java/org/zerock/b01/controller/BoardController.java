@@ -1,5 +1,6 @@
 package org.zerock.b01.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,12 +25,14 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model, HttpSession session){
         //PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         PageResponseDTO<BoardListReplyCountDTO> responseDTO =
                 boardService.listWithReplyCount(pageRequestDTO);
         log.info(responseDTO);
         model.addAttribute("responseDTO", responseDTO);
+        String id = (String)session.getAttribute("user");
+        model.addAttribute("user", id);// 이새키가 받아오고 보내주고 다함;
     }
 
     @GetMapping("/register")
