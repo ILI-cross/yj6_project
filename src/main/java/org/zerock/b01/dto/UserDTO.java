@@ -18,5 +18,4 @@ public class UserDTO {
     private String mid;
     private String mpw;
     private String mname;
-
 }

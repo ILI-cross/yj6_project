@@ -8,9 +8,6 @@
 </head>
 
 <div layout:fragment="content">
-    <div class="row-cols-1">있나
-        <p>Logged in as: <span th:text="${user}"></span></p>
-    </div>
     <div class="row mt-3">
         <div class="col">
             <div class="card">
@@ -21,17 +18,17 @@
                     <form action="/users/register" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text">mid</span>
-                            <input type="text" name="mid" class="form-control" placeholder="mid">
+                            <input type="text" name="mid" class="form-control" placeholder="아이디">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">mpw</span>
-                            <textarea class="form-control col-sm-5" rows="5" name="mpw"></textarea>
+                            <textarea class="form-control col-sm-5" rows="5" name="mpw" placeholder="비번"></textarea>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">mname</span>
-                            <input type="text" name="mname" class="form-control" placeholder="mname">
+                            <input type="text" name="mname" class="form-control" placeholder="이름">
                         </div>
 
 

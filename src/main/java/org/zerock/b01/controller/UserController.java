@@ -1,6 +1,7 @@
 package org.zerock.b01.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -50,13 +51,12 @@ public class UserController {
         HttpSession session = req.getSession(false); // 세션이 없으면 새로 생성하지 않고, null을 반환하도록 설정
 
         if (session != null && session.getAttribute("user") != null) {
+            session.setMaxInactiveInterval(200);
             return "redirect:/board/list"; // 세션에 "user" 속성이 있다면 게시판 목록 페이지로 리디렉션
         } else {
             return "/users/login"; // 세션이 없거나 "user" 속성이 없는 경우 로그인 페이지로 이동
         }
     }
-
-
 
     @PostMapping("/login")
     public String login(@RequestParam String mid, @RequestParam String mpw, RedirectAttributes redirectAttributes, HttpServletRequest req) {
@@ -64,7 +64,8 @@ public class UserController {
             UserDTO userDTO = userService.login(mid, mpw);
             HttpSession session = req.getSession(); // 세션을 가져옴
             session.setAttribute("user", userDTO.getMid()); // 로그인 사용자의 아이디를 세션에 저장
-
+            session.setAttribute("userpw", userDTO.getMpw());
+            session.setAttribute("username", userDTO.getMname());
             return "redirect:/board/list"; // 로그인 성공 후 리디렉션
         } catch (NoSuchElementException e) {
             return "redirect:/users/login"; // 로그인 실패 시 로그인 페이지로 리디렉션
@@ -76,4 +77,15 @@ public class UserController {
         return "redirect:/users/login";
     }
 
+    @GetMapping("/mypage")
+    public void mypage(HttpServletRequest req, HttpSession session) {
+        if(session.getAttribute("user") != null){
+            req.setAttribute("user", session.getAttribute("user"));
+            req.setAttribute("userpw", session.getAttribute("userpw"));
+            req.setAttribute("username", session.getAttribute("username"));
+        }
+
+//        UserDTO userDTO = (UserDTO) session.getAttribute("user");
+//        session.setAttribute("user", userDTO);
+    }
 }

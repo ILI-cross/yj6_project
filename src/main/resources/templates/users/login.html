@@ -15,7 +15,7 @@
                     User Login
                 </div>
                 <div class="card-body">
-                    <form action="/users/login" method="post">
+                    <form action="/users/login" method="post" id="loginbox">
                         <div class="input-group mb-3">
                             <span class="input-group-text">mid</span>
                             <input type="text" name="mid" class="form-control" placeholder="mid">
@@ -43,16 +43,35 @@
     const errors = [[${errors}]]
     const error = [[${errors1}]]
     const message1 = [[${message}]]
+    const users = [[${user}]]
 
+    document.getElementById('loginbox').addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 제출 동작 방지
+
+        // 서버에서 전달된 user 값을 JavaScript로 전달
+        console.log(users+"이값이다.!")
+
+        if (!users) {
+            alert('아이디와 비밀번호를 다시 확인해주세요.');
+        } else {
+            alert('반갑습니다.');
+            event.target.submit();
+        }
+    });
     console.log(errors)
     let errorMsg = ''
+    //user 로그인인 안된상태 값이없음.
+    // if(a){
+    //     alert('회원입니다.')
+    // }else{
+    //     alert('로그인ㅇ ')    }
 
-    if(errors){
-        for(let i=0; i<errors.length; i++){
-            errorMsg += `${errors[i].field}은(는) ${errors[i].code}`
-        }
-        alert(errorMsg)
-    }
-    alert(message1)
+    // if(errors){
+    //     for(let i=0; i<errors.length; i++){
+    //         errorMsg += `${errors[i].field}은(는) ${errors[i].code}`
+    //     }
+    //     alert(errorMsg)
+    // }
+    // alert(message1)
 </script>
 </html>

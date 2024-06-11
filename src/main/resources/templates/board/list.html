@@ -23,10 +23,16 @@
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
                         <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
-                            <span th:text="${user}">사용자 이름</span>
+                        <div th:if="${user}">
+                            <span th:if="${user}" th:text="${user}">사용자 이름</span>
                         <button class="btn btn-outline-danger" type="submit">
                             <a href="/users/logout">로그아웃</a>
                         </button>
+
+                        <button class="btn btn-outline-light" type="submit">
+                            <a href="/users/mypage">🏠마이페이지</a>
+                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
